@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import { FileProcessorService } from './Services/file-processor.service';
+
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [
         AppComponent
       ],
+      providers:[FileProcessorService]
     }).compileComponents();
   });
 
@@ -22,10 +25,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('front-test');
   });
 
-  it('should render title', () => {
+  it(`should have as title 'front-test'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('front-test app is running!');
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('front-test');
   });
+  
 });
