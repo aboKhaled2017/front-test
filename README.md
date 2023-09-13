@@ -12,15 +12,32 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
 ## Project Structure
- 1- Components 
-     - AppComponent for displaying the demo
- 2- Services 
-     - AlertService =>a very basic implementation for alerting and notifying the user (it could be implemenetd by any bootstrap   library for alertion)
-    
-     - FileprocessorService => it's for processing the file liek (reading file and retrive a text) , more functionality can be added here which is related to file processing logic
-    
-     - LoggerService => a very basic implementing which using consol provider to sink messages , (it could be integrated with a third party for logging)
 
-3- Pipes 
-     - WordCountPipe => A Pipe for counting the word frequency in a specific text
+## Components
+
+1. **AppComponent**
+   - Description: The main component for displaying the demo.
+   - Usage: Used to showcase the application.
+
+## Services
+
+1. **AlertService**
+   - Description: A very basic implementation for alerting and notifying the user. It can be integrated with any Bootstrap-based library for alerting.
+   - Usage: Used to display alerts and notifications in the application.
+
+2. **FileProcessorService**
+   - Description: Used for processing files, such as reading a file and retrieving its text content. It can be extended to include additional functionality related to file processing logic.
+   - Usage: Used to handle file-related operations in the application.
+
+3. **LoggerService**
+   - Description: A basic implementation of a logger service that utilizes the console to output log messages. It can be integrated with third-party logging libraries for more advanced logging features.
+   - Usage: Used for logging messages and debugging in the application.
+
+## Pipes
+
+1. **WordCountPipe**
+   - Description: A custom pipe designed for counting word frequencies in a given text.
+   - Usage: Used to calculate and display word frequencies in the application. It takes a text input and returns a map of words and their frequencies.
+
+
   
