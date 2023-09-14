@@ -33,11 +33,9 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
    - Description: A basic implementation of a logger service that utilizes the console to output log messages. It can be integrated with third-party logging libraries for more advanced logging features.
    - Usage: Used for logging messages and debugging in the application.
 
-## Pipes
-
-1. **WordCountPipe**
-   - Description: A custom pipe designed for counting word frequencies in a given text.
-   - Usage: Used to calculate and display word frequencies in the application. It takes a text input and returns a map of words and their frequencies.
+4. **TextprocessingService**
+   - Description: A service designed for processing a text  like  counting word frequencies in a given text.
+   - Usage: Used to calculate and display word frequencies in the application. 
 
 
   

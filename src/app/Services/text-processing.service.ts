@@ -1,12 +1,10 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-@Pipe({
-  name: 'wordCounter'
-})
-export class WordCounterPipe implements PipeTransform {
 
-  transform(text: string): Observable<Map<string, number>> {
+export class TextProcessingService {
+
+  CreateWordsFrequencyMapAsync(text: string): Observable<Map<string, number>> {
     if (!text) {
       return of(new Map<string, number>());
     }
@@ -26,5 +24,4 @@ export class WordCounterPipe implements PipeTransform {
 
     return of(wordFreqent);
   }
-
 }

@@ -3,14 +3,14 @@ import { AlertrService } from './Services/alert.service';
 import { LoggerService } from './Services/logger.service';
 import { FileProcessorService } from './Services/file-processor.service';
 import { Observable, Subscription } from 'rxjs';
-import { WordCounterPipe } from './Pipes/word-counter.pipe';
+import { TextProcessingService } from './Services/text-processing.service';
 
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers:[WordCounterPipe],
+  providers:[TextProcessingService,FileProcessorService],
 })
 export class AppComponent {
   title = 'front-test';
@@ -24,10 +24,11 @@ export class AppComponent {
               private alertService:AlertrService,
               private loggerService:LoggerService,
               private fileProcessor:FileProcessorService,
-              private wordCountPipe:WordCounterPipe){
+              private textProcessingService:TextProcessingService){
 
   }
   
+  //triggered when a file input is clicked and a file been uploaded
   onFileSelected(event: any): void {
     const file: File = event?.target?.files[0];
    
@@ -35,25 +36,28 @@ export class AppComponent {
    
         this.loggerService.logInfo(`new file has been uploaded ${file.name} with length ${file.size}`);
         
-      var observableFileProcessor=  this.fileProcessor.readTextFileAsync(file)
-                                      .subscribe(
-                                        text=>{
-                                          debugger
+      var observableFileProcessor=  this.fileProcessor.readTextFileAsync(file).subscribe(
+                                         text=>{ //on finish reading a text
                                           this.uploadedText=text;
                                           
-                                          this.wordCountPipe.transform(text).subscribe(val=>{
-                                            this.wordFrequency=val;
+                                          this.textProcessingService.CreateWordsFrequencyMapAsync(text).subscribe(
+                                            frequencyMap=>{//on finish counting the word frequency
+                                             this.wordFrequency=frequencyMap;
+                                          },
+                                          error=>{//error during calculating the word frequency
+                                            this.loggerService.logInfo("faild to calculate the word frequency");
+                                            this.alertService.alertifyError("faild to calculate the word frequency");
                                           });
 
                                           this.loggerService.logInfo(`the file ${file.name} has been read successfully`);
                                         }
-                                        ,error=>{
-                                          debugger
+                                        ,error=>{ //on error during reading the text
                                           this.loggerService.logeError(error);
                                           this.alertService.alertifyError(error);
                                         },
                                         ()=>{});
-      this.mySubscriptions.push(observableFileProcessor);                           
+
+      this.mySubscriptions.push(observableFileProcessor);  //it will be disposed once component destroyed                        
     } 
     else {
         this.alertService.alertifyError('Please select a .txt file.');

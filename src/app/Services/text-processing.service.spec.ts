@@ -1,15 +1,21 @@
-import { WordCounterPipe } from './word-counter.pipe';
+import { TestBed } from '@angular/core/testing';
 
-describe('WordCounterPipe', () => {
-  let pipe: WordCounterPipe;
+import { TextProcessingService } from './text-processing.service';
+
+describe('TextProcessingService', () => {
+  let service: TextProcessingService;
 
   beforeEach(() => {
-    pipe = new WordCounterPipe();
+    TestBed.configureTestingModule({
+      providers:[TextProcessingService]
+    });
+    service = TestBed.inject(TextProcessingService);
   });
 
-  it('should create an instance', () => {
-    expect(pipe).toBeTruthy();
+  it('should be created', () => {
+    expect(service).toBeTruthy();
   });
+
 
   it('should transform a string into a word frequency map', () => {
     const inputText = 'test1 test2 test1 test1 test3';
@@ -19,7 +25,7 @@ describe('WordCounterPipe', () => {
       ['test3', 1]
     ]);
 
-    const result$ = pipe.transform(inputText);
+    const result$ = service.CreateWordsFrequencyMapAsync(inputText);
 
     result$.subscribe((result) => {
       expect(result).toHaveSize(3);
@@ -33,7 +39,7 @@ describe('WordCounterPipe', () => {
     const emptyInput = '';
     const expectedEmptyMap = new Map<string, number>();
 
-    const result$ = pipe.transform(emptyInput);
+    const result$ = service.CreateWordsFrequencyMapAsync(emptyInput);
 
     result$.subscribe((result) => {
       expect(result).toEqual(expectedEmptyMap);
